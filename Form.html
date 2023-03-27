@@ -1,0 +1,284 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <base target="_top">
+  <style>
+   * {
+      box-sizing: border-box;
+      font-size:20px;
+    }
+
+    select ,[type = button] ,input[type=text] {
+      float:right;
+    } 
+    select[name=sheetlist] {
+      width:250px;
+    }
+
+    input[type=text] {
+      width:300px;
+    }
+    select[name=academic] {
+      width: 250px;
+    }
+    /* style of dynamic table */
+    table {
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+      -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+      -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+    }
+
+    table, th, td {
+      border: 1px solid;
+      border-color: #808080;
+      border-collapse: collapse;
+      margin: 50px auto;
+    }
+    th, td {
+      padding-top: 10px;
+      padding-bottom: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    .form-1 {
+      width: 424px;
+      height: 337px;
+    }
+    .form-2 {
+      height: 549px;
+      width: 500px;
+    }
+    .form-style-8{
+      font-family: 'Open Sans Condensed', arial, sans;
+
+      padding: 30px;
+      background: #FFFFFF;
+      margin: 0px auto 10px auto;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+      -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
+      -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
+    }
+    .form-style-8 h2{
+      background: #4D4D4D;
+      text-transform: uppercase;
+      font-family: 'Open Sans Condensed', sans-serif;
+      /* color: #797979; */
+      color: #D3D3D3;
+      font-size: 18px;
+      font-weight: 100;
+      padding: 20px;
+      margin: -30px -30px 30px -30px;
+    }
+    .form-style-8 input[type="text"],
+    .form-style-8 input[type="date"],
+    .form-style-8 input[type="datetime"],
+    .form-style-8 input[type="email"],
+    .form-style-8 input[type="number"],
+    .form-style-8 input[type="search"],
+    .form-style-8 input[type="time"],
+    .form-style-8 input[type="url"],
+    .form-style-8 input[type="password"],
+    .form-style-8 textarea,
+    .form-style-8 select 
+    {
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      outline: none;
+      display: block;
+      width: 100%;
+      padding: 7px;
+      border: none;
+      border-bottom: 1px solid #ddd;
+      background: transparent;
+      margin-bottom: 10px;
+      font: 16px Arial, Helvetica, sans-serif;
+      height: 45px;
+    }
+    .form-style-8 textarea{
+      resize:none;
+      overflow: hidden;
+    }
+    .form-style-8 input[type="button"], 
+    .form-style-8 input[type="submit"]{
+      /* -moz-box-shadow: inset 0px 1px 0px 0px #45D6D6; */
+      /* -webkit-box-shadow: inset 0px 1px 0px 0px #45D6D6; */
+      /* box-shadow: inset 0px 1px 0px 0px #45D6D6; */
+      background-color: #04AA6D;
+      border: 1px solid #04AA6D;
+      display: inline-block;
+      cursor: pointer;
+      color: #FFFFFF;
+      font-family: 'Open Sans Condensed', sans-serif;
+      font-size: 14px;
+      padding: 8px 18px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .form-style-8 input[type="button"]:hover, 
+    .form-style-8 input[type="submit"]:hover {
+      /* background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%); */
+      background-color: #059862;
+
+    }
+  </style>
+</head>
+<body>
+
+  <div id="check" style="display:block">
+    <div class="form-1 form-style-8" >
+    <h2>Arzt suchen!</h2>
+    <form id="searchForm" >
+      <!-- <label for="TabName">TabName:</label> -->
+      <select name="sheetlist" id="sheetlist"></select>
+      <br><br>
+      <!-- <label for="name">Name:</label> -->
+      <input type="text" id="name" name="name" placeholder="Name">
+      <br><br>
+      <!-- <label for="name">Academic:</label> -->
+      <select name="academic" id="academic"></select><br><br>
+      <input type="button" value="Suchen" onclick="searchRlt();">
+    </form>
+    </div>
+  </div>
+
+  <div style="display:none" id="input">
+    <div class="form-2 form-style-8">
+      <h2>Arzt hinzufügen!</h2>
+      <form id="addFormVale">
+        <!-- <label for="TabName">TabName:</label> -->
+        <select style="width:200px" name="sheetlist_1" id="selectSheetList_1"></select>
+        <!-- <input type="text" id="name" name="name"> -->
+        <br><br>
+        <!-- <label for="name">Name:</label> -->
+        <input type="text" id="iname" name="iname" placeholder="Name"><br><br>
+            <!-- <label for="name">FirstName:</label> -->
+        <input type="text" id="lastname" name="firstname" placeholder="FirstName"><br><br>
+            <!-- <label for="name">Academic:</label> -->
+        <select name="academic_1" id="academic_1"></select><br><br>
+            <!-- <label for="name">PhoneNumber:</label> -->
+        <input type="text" id="phonenumber" name="phonenumber" placeholder="PhoneNumber"><br><br>
+                <!-- <label for="name">Note:</label> -->
+        <input type="text" id="note" name="note" placeholder="Note"><br><br>
+                <!-- <label for="name">Comment:</label> -->
+        <input type="text" id="comment" name="comment" placeholder="Comment"><br><br>
+        <input style="width:85px; margin-left:10px;" type="button" value="Cancel" onclick="cancelAction();">
+        <input style="width:120px" type="button" value="Hinzufügen" onclick="addFormValue();">
+     
+      </form>
+    </div>
+  </div>
+  <table id="idTable">
+<!-- here goes our data! -->
+  </table>
+
+</body>
+<script>
+  //  
+  function  sendprameter() {
+    google.script.run.withSuccessHandler(selectSheetList).allSheetsName();
+  }
+  
+  <!-- show Academic in searchDialog. -->
+  function showAcademic() {
+      var academic = ["Dr. med","DM","Prof. Dr.","None"];
+    var select = document.getElementById('academic');
+    academic.forEach(function(vale){
+      var opt = document.createElement('option');
+        opt.value = vale;
+        opt.innerHTML = vale;
+        select.appendChild(opt);
+    });
+  }
+  function showAcademic_1() {
+      var academic = ["Dr. med","DM","Prof. Dr.","None"];
+    var select = document.getElementById('academic_1');
+    academic.forEach(function(vale){
+      var opt = document.createElement('option');
+        opt.value = vale;
+        opt.innerHTML = vale;
+        select.appendChild(opt);
+    });
+  }
+  <!-- call function -->
+  showAcademic();
+  sendprameter();
+
+  function addFormValue() {
+    google.script.run.addFromValueToSheet(document.getElementById("addFormVale"));
+    // google.script.run.withSuccessHandler(drawTable).findContentsInSheets(document.getElementById("searchForm"));
+  }
+  // cancel action processing function
+  function cancelAction() {
+    document.getElementById("check").style.display = "block";
+    // document.getElementById("idTable").style.display = "block";
+    document.getElementById("input").style.display = "none";
+  }
+  // 
+  function searchRlt() {
+    google.script.run.withSuccessHandler(drawTable).findContentsInSheets(document.getElementById("searchForm"));
+  }
+  // 
+  function selectSheetList(strlength) {
+    var select = document.getElementById('sheetlist');
+    // var opt = document.createElement('option');
+        strlength.forEach(function(val){
+          var opt = document.createElement('option');
+          opt.value = val;
+          opt.innerHTML = val;
+          select.appendChild(opt);
+        });
+  }
+  function selectSheetList_1(strlength) {
+    var select = document.getElementById('selectSheetList_1');
+        strlength.forEach(function(val){
+          var opt = document.createElement('option');
+          opt.value = val;
+          opt.innerHTML = val;
+          select.appendChild(opt);
+        });
+  }
+      // -----------------------------------------------------
+
+  function drawTable(data) {
+    if (data.length ==0){
+      document.getElementById("check").style.display = "none";
+      document.getElementById("idTable").style.display = "none";
+      document.getElementById("input").style.display = "block";
+      var input_val = document.getElementById("name").value ;
+      document.getElementById("iname").value = input_val ;
+      google.script.run.withSuccessHandler(selectSheetList_1).allSheetsName();
+      showAcademic_1();
+   }
+   else{ 
+      let table = document.querySelector("table");
+      let dataHead = ['Name', 'FirstName', 'Academic', 'PhoneNumber','Note'];
+      let thead = table.createTHead();
+      let row = thead.insertRow();
+
+      for (let key of dataHead) {
+        let th = document.createElement("th");
+        let text = document.createTextNode(key);
+        th.appendChild(text);
+        row.appendChild(th);
+      }
+
+    for (let element of data) {
+      let row = table.insertRow();
+      for (key in element) {
+        let cell = row.insertCell();
+        let text = document.createTextNode(element[key]);
+        cell.appendChild(text);
+      }
+    }
+  }
+}
+<!-- form script -->
+//auto expand textarea
+function adjust_textarea(h) {
+    h.style.height = "20px";
+    h.style.height = (h.scrollHeight)+"px";
+}
+</script>
+</html>
