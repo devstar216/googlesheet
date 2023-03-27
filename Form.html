@@ -43,18 +43,17 @@
     }
     .form-1 {
       width: 424px;
-      height: 337px;
+      height: 250px;
     }
     .form-2 {
-      height: 549px;
+      height: 350px;
       width: 500px;
     }
     .form-style-8{
       font-family: 'Open Sans Condensed', arial, sans;
-
       padding: 30px;
       background: #FFFFFF;
-      margin: 0px auto 10px auto;
+      margin: 0px auto 0px auto;
       box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
       -moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.22);
       -webkit-box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.22);
@@ -67,7 +66,7 @@
       color: #D3D3D3;
       font-size: 18px;
       font-weight: 100;
-      padding: 20px;
+      padding: 10px;
       margin: -30px -30px 30px -30px;
     }
     .form-style-8 input[type="text"],
@@ -88,13 +87,13 @@
       outline: none;
       display: block;
       width: 100%;
-      padding: 7px;
+      padding-left: 7px;
       border: none;
       border-bottom: 1px solid #ddd;
       background: transparent;
-      margin-bottom: 10px;
+      margin-bottom: 0px;
       font: 16px Arial, Helvetica, sans-serif;
-      height: 45px;
+      height: 35px;
     }
     .form-style-8 textarea{
       resize:none;
@@ -115,29 +114,26 @@
       padding: 8px 18px;
       text-decoration: none;
       text-transform: uppercase;
+      margin-top: 10px;
     }
     .form-style-8 input[type="button"]:hover, 
     .form-style-8 input[type="submit"]:hover {
       /* background:linear-gradient(to bottom, #34CACA 5%, #30C9C9 100%); */
       background-color: #059862;
-
     }
   </style>
 </head>
 <body>
-
   <div id="check" style="display:block">
     <div class="form-1 form-style-8" >
     <h2>Arzt suchen!</h2>
     <form id="searchForm" >
       <!-- <label for="TabName">TabName:</label> -->
       <select name="sheetlist" id="sheetlist"></select>
-      <br><br>
       <!-- <label for="name">Name:</label> -->
       <input type="text" id="name" name="name" placeholder="Name">
-      <br><br>
       <!-- <label for="name">Academic:</label> -->
-      <select name="academic" id="academic"></select><br><br>
+      <select name="academic" id="academic"></select>
       <input type="button" value="Suchen" onclick="searchRlt();">
     </form>
     </div>
@@ -150,28 +146,30 @@
         <!-- <label for="TabName">TabName:</label> -->
         <select style="width:200px" name="sheetlist_1" id="selectSheetList_1"></select>
         <!-- <input type="text" id="name" name="name"> -->
-        <br><br>
+  
         <!-- <label for="name">Name:</label> -->
-        <input type="text" id="iname" name="iname" placeholder="Name"><br><br>
+        <input type="text" id="iname" name="iname" placeholder="Name">
             <!-- <label for="name">FirstName:</label> -->
-        <input type="text" id="lastname" name="firstname" placeholder="FirstName"><br><br>
+        <input type="text" id="lastname" name="firstname" placeholder="FirstName">
             <!-- <label for="name">Academic:</label> -->
-        <select name="academic_1" id="academic_1"></select><br><br>
+        <select name="academic_1" id="academic_1"></select>
             <!-- <label for="name">PhoneNumber:</label> -->
-        <input type="text" id="phonenumber" name="phonenumber" placeholder="PhoneNumber"><br><br>
+        <input type="text" id="phonenumber" name="phonenumber" placeholder="PhoneNumber">
                 <!-- <label for="name">Note:</label> -->
-        <input type="text" id="note" name="note" placeholder="Note"><br><br>
+        <input type="text" id="note" name="note" placeholder="Note">
                 <!-- <label for="name">Comment:</label> -->
-        <input type="text" id="comment" name="comment" placeholder="Comment"><br><br>
-        <input style="width:85px; margin-left:10px;" type="button" value="Cancel" onclick="cancelAction();">
+        <!-- <input type="text" id="comment" name="comment" placeholder="Comment"> -->
+        <input style="width:120px; margin-left:10px;" type="button" value="stornieren" onclick="cancelAction();">
         <input style="width:120px" type="button" value="Hinzufügen" onclick="addFormValue();">
      
       </form>
     </div>
   </div>
-  <table id="idTable">
-<!-- here goes our data! -->
-  </table>
+  <div id="idTable"> 
+    <table style="width:100%;">
+      <tr><th>Name</th><th>FirstName</th><th>Academic</th><th>PhoneNumber</th><th>Note</th></tr>
+    </table>
+  </div>
 
 </body>
 <script>
@@ -213,6 +211,8 @@
   function cancelAction() {
     document.getElementById("check").style.display = "block";
     // document.getElementById("idTable").style.display = "block";
+      document.querySelector("table").style.display = "table"
+      document.querySelector("table").style.width = "100%";
     document.getElementById("input").style.display = "none";
   }
   // 
@@ -244,34 +244,51 @@
   function drawTable(data) {
     if (data.length ==0){
       document.getElementById("check").style.display = "none";
-      document.getElementById("idTable").style.display = "none";
+      // document.getElementById("idTable").style.display = "none";
       document.getElementById("input").style.display = "block";
       var input_val = document.getElementById("name").value ;
       document.getElementById("iname").value = input_val ;
       google.script.run.withSuccessHandler(selectSheetList_1).allSheetsName();
       showAcademic_1();
+      document.querySelector("table").style.display = "none"
    }
    else{ 
       let table = document.querySelector("table");
-      let dataHead = ['Name', 'FirstName', 'Academic', 'PhoneNumber','Note'];
-      let thead = table.createTHead();
-      let row = thead.insertRow();
-
-      for (let key of dataHead) {
-        let th = document.createElement("th");
-        let text = document.createTextNode(key);
-        th.appendChild(text);
-        row.appendChild(th);
+      // var rowCount = table.rows.length;
+      // let dataHead = ['Name', 'FirstName', 'Academic', 'PhoneNumber','Note'];
+      // let thead = table.createTHead();
+      // let row = thead.insertRow();
+      // for (let key of dataHead) {
+      //   let th = document.createElement("th");
+      //   let text = document.createTextNode(key);
+      //   th.appendChild(text);
+      //   row.appendChild(th);
+      // }
+    // console.log(table.rows.length);
+      var tbrow = table.rows.length;
+      if(tbrow == 1){
+            for (let element of data) {
+            let row = table.insertRow();
+            for (key in element) {
+              let cell = row.insertCell();
+              let text = document.createTextNode(element[key]);
+              cell.appendChild(text);
+            }
+          }
       }
-
-    for (let element of data) {
-      let row = table.insertRow();
-      for (key in element) {
-        let cell = row.insertCell();
-        let text = document.createTextNode(element[key]);
-        cell.appendChild(text);
+      else {
+            for(i=0; i<tbrow-1;i++){
+              table.deleteRow(-1);
+          }
+          for (let element of data) {
+            let row = table.insertRow();
+            for (key in element) {
+              let cell = row.insertCell();
+              let text = document.createTextNode(element[key]);
+              cell.appendChild(text);
+            }
+          }
       }
-    }
   }
 }
 <!-- form script -->

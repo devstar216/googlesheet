@@ -34,8 +34,8 @@ function onEdit() {
 function showResult() {
 var widget = HtmlService.createHtmlOutputFromFile("Form.html");
   widget.setWidth(700);
-  widget.setHeight(550);
-  SpreadsheetApp.getUi().showModelessDialog(widget,'google script');
+  widget.setHeight(450);
+  SpreadsheetApp.getUi().showModelessDialog(widget," ");
 }
 
 function addFromValueToSheet(form) {
